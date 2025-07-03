@@ -1,0 +1,105 @@
+{
+    "name": "Python 3.12 Development",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": "..",
+        "args": { "PYTHON_VERSION": "3.12" }
+    },
+    // Forward ports from the container to the host machine
+    //"forwardPorts": [8004],
+    //"appPort": 8004,
+    "workspaceFolder": "/app",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/app,type=bind,consistency=cached",
+    // VS Code UI and behavior customizations when connected to the container
+    "customizations": {
+        "vscode": {
+            // List of VS Code extension IDs to automatically install inside the container
+            "extensions": [
+                // Core Python support
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "ms-python.debugpy",
+
+                // Linting and formatting
+                "ms-python.black-formatter",
+                "ms-python.flake8",
+
+                // Testing and development
+                "ms-python.pytest",
+                "ms-toolsai.jupyter",
+
+                // Git and version control
+                "eamodio.gitlens",
+                "mhutchie.git-graph",
+
+                // Docker and containers
+                "ms-azuretools.vscode-docker",
+
+                // Documentation and markup
+                "streetsidesoftware.code-spell-checker",
+                "yzhang.markdown-all-in-one",
+                "shd101wyy.markdown-preview-enhanced",
+                "njpwerner.autodocstring",
+
+                // Web development (if needed)
+                "wholroyd.jinja",
+                "noxiz.jinja-snippets",
+
+                // AI assistance
+                "github.copilot",
+                "saoudrizwan.claude-dev",
+                "google.geminicodeassist",
+
+                // UI enhancements
+                "pkief.material-icon-theme",
+                "ms-vscode.vscode-json",
+
+                // Remote development
+                "ms-vscode-remote.remote-containers",
+                "ms-vscode-remote.remote-ssh",
+                "ms-vscode-remote.remote-wsl",
+
+                // Additional useful extensions
+                "mechatroner.rainbow-csv",
+                "ms-python.isort",
+                "ms-python.mypy-type-checker"
+            ],
+            // Specific VS Code settings to apply only when working inside this container
+            "settings": {
+                // Editor settings
+                "editor.tabSize": 4,
+                "editor.insertSpaces": true,
+                "editor.rulers": [88, 120],
+                "editor.wordWrap": "bounded",
+                "editor.wordWrapColumn": 88,
+
+                // File settings
+                "files.eol": "\n",
+                "files.trimTrailingWhitespace": true,
+                "files.insertFinalNewline": true,
+                "files.encoding": "utf8",
+
+                // Python interpreter and analysis
+                "python.defaultInterpreterPath": "/usr/local/bin/python",
+                "python.analysis.typeCheckingMode": "basic",
+                "python.analysis.autoSearchPaths": true,
+                "python.analysis.autoImportCompletions": true,
+
+                // Testing configuration
+                "python.testing.pytestEnabled": true,
+                "python.testing.unittestEnabled": false,
+                "python.testing.autoTestDiscoverOnSaveEnabled": true,
+
+                // Python formatting and linting
+                "[python]": {
+                    "editor.defaultFormatter": "ms-python.black-formatter",
+                    "editor.formatOnSave": true,
+                    "editor.codeActionsOnSave": {
+                        "source.fixAll": "explicit",
+                        "source.organizeImports": "explicit"
+                    }
+                }
+            }
+        }
+    }
+}
