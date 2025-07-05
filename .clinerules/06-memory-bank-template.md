@@ -1,487 +1,659 @@
-# Memory Bank Template Files
+# Memory Bank Templates
 
-Create these files in your `memory-bank/` directory:
+## Project Brief Template (projectbrief.md)
 
-## projectbrief.md
 ```markdown
-# Project Brief
+# Project Brief: [Project Name]
 
-## What I'm Building
-[Simple description: e.g., "A Python tool to organize my photo collection by date and location"]
+## Overview
+[One paragraph description of what this project does and why I'm building it]
 
-## Why I'm Building It
-[Personal motivation: e.g., "My photos are scattered across folders and I can't find anything when I need it"]
+## Learning Objectives
+- [ ] Learn [Python concept 1] through [specific feature]
+- [ ] Understand [Python concept 2] by implementing [component]
+- [ ] Practice [skill] while building [feature]
+- [ ] Master [technique] for [use case]
 
-## Main Goals
-- [Goal 1: e.g., "Automatically sort photos into year/month folders"]
-- [Goal 2: e.g., "Handle duplicate photos safely"]
-- [Goal 3: e.g., "Work reliably in my Docker development environment"]
+## Core Requirements
+### Must Have (MVP)
+- [ ] [Basic feature 1 that makes it useful]
+- [ ] [Basic feature 2 for core functionality]
+- [ ] [Basic feature 3 for minimum viability]
 
-## Success Looks Like
-[How will I know it's working: e.g., "I can find photos from specific events quickly and easily"]
+### Nice to Have (Future)
+- [ ] [Enhanced feature 1]
+- [ ] [Enhanced feature 2]
+- [ ] [Advanced feature]
 
-## Learning Goals
-- [What I want to learn: e.g., "Working with file metadata and image processing"]
-- [Python concepts to practice: e.g., "pathlib, datetime, and basic error handling"]
-- [Docker skills: e.g., "Volume mounting and environment variables"]
+## Technical Specifications
+- **Language**: Python 3.11+
+- **Environment**: VS Code Remote Container
+- **Key Libraries**:
+  - [Library 1] for [purpose]
+  - [Library 2] for [purpose]
+- **Data Sources**: [Where data comes from]
+- **Output Format**: [What the project produces]
 
-## Development Environment
-- **Setup**: VS Code + Docker + WSL2
-- **Skill Level**: 4/10 Python developer
-- **Project Type**: Personal use module/application
-- **Preferences**: Readability over elegance, minimal features first
+## Success Criteria
+This project will be successful when:
+1. I can [specific user action] and get [specific result]
+2. The code is readable enough that I can understand it in 3 months
+3. I've learned [specific Python concepts] well enough to use them again
+4. It solves my actual problem of [real-world issue]
 
-## Constraints
-- **Technical**: Must work in Docker container with volume mounts
-- **Personal**: Keep it simple - I'm still learning Python
-- **Time**: Want basic version working in a few coding sessions
-- **Complexity**: Minimal error handling, focus on core functionality
+## Constraints and Assumptions
+- **Time**: Aiming for [X hours/days] of development
+- **Complexity**: Keeping it simple enough for skill level 4/10
+- **Scope**: Personal use only, not production-ready
+- **Performance**: Good enough for [expected data size/frequency]
+
+## Example Use Case
 ```
 
-## activeContext.md
+[Show a concrete example of how I'll use this project]
+Input: [example input]
+Process: [what happens]
+Output: [example output]
+
+```
+
+## Notes
+- [Any special considerations]
+- [Lessons learned from similar projects]
+- [Resources or references to check]
+
+---
+Created: [Date]
+Last Updated: [Date]
+```
+
+## Active Context Template (activeContext.md)
+
 ```markdown
 # Active Context
 
-## Current Session
+## Current Session Info
 - **Date**: [Today's date]
-- **Docker Status**: [Container running/stopped]
-- **What I'm working on**: [Current specific task]
-- **Session goal**: [What I want to accomplish today]
-- **Energy/Focus**: [High/Medium/Low - affects task complexity]
+- **Session Start**: [Time]
+- **Mode**: [development/debugging/learning/refactoring]
+- **Confidence Level**: [X/10] in current task
 
-## Development Environment Status
-- **VS Code**: [Connected to container/local]
-- **Docker container**: [app name - running/stopped]
-- **WSL2**: [Any issues or notes]
-- **File paths**: [Working in /app/app_i_am_developing/]
+## What I'm Working On
+### Current Task
+[Specific feature or problem I'm solving right now]
 
-## Recent Progress
-- **[Date]**: [What I accomplished - be specific about files/functions]
-- **[Date]**: [What I learned about Python or Docker]
-- **[Date]**: [Problems I solved and how]
+### Why This Task
+[How it connects to the larger project goals]
 
-## Currently Focused On
-[Current specific feature or file I'm working on]
+### Approach
+[My plan for implementing this]
 
-### Files I'm Working With
-```python
-# [Brief description of current code]
-# app_i_am_developing/src/[file_name].py
-# [Paste important snippets here for context]
+## Recent Decisions
+1. **Decision**: [What I decided]
+   **Reason**: [Why I made this choice]
+   **Alternative**: [What I considered but didn't choose]
+
+2. **Decision**: [What I decided]
+   **Reason**: [Why I made this choice]
+   **Alternative**: [What I considered but didn't choose]
+
+## Current Challenges
+- **Challenge**: [What's difficult]
+  **Attempted**: [What I've tried]
+  **Next Attempt**: [What to try next]
+
+## Code Locations
+- Working on: `/app/app_i_am_developing/src/[current_file.py]`
+- Related files:
+  - `[file1.py]` - [what it does]
+  - `[file2.py]` - [what it does]
+
+## Terminal Commands Used
+```bash
+# Recent useful commands
+[command 1]  # What it did
+[command 2]  # What it did
 ```
 
-## Questions I Have
-- [Question 1 about my current code or approach]
-- [Question 2 about Python concepts I'm using]
-- [Question 3 about Docker/environment issues]
+## Learning Notes
 
-## What's Working Well
-- [Thing 1 that's going smoothly in my development]
-- [Thing 2 about my environment or workflow]
+- **Concept**: [Python concept encountered]
+  **Understanding**: [What I learned about it]
+  **Example**: [How I used it]
 
-## What's Challenging
-- [Challenge 1 and what I'm trying to figure out]
-- [Challenge 2 about Python concepts or Docker setup]
+## Next Steps (Priority Order)
 
-## Next Steps
-1. **Today**: [What I want to finish this session]
-2. **This week**: [Goals for the next few coding sessions]
-3. **When ready**: [Future improvements after basic version works]
+1. [ ] [Immediate next action]
+2. [ ] [Following action]
+3. [ ] [After that]
 
-## Docker/Environment Notes
-- **Volume mounts**: [Any issues with file access]
-- **Container logs**: [Useful error messages or debug info]
-- **Path issues**: [Any problems with /app vs local paths]
+## Questions for Next Session
 
-## Code Snippets from This Session
-```python
-# [Function or code block I'm currently working on]
-# [Include any error messages I'm debugging]
+- [ ] How do I [specific technical question]?
+- [ ] Should I [architectural decision]?
+- [ ] Is there a better way to [current approach]?
+
+## Session End Notes
+
+- **Progress Made**: [What I accomplished]
+- **Confidence Now**: [X/10]
+- **Ready for Next Time**: [Yes/No - what needs setup]
+
+---
+Session End: [Time]
+Total Time: [Duration]
+
 ```
 
-## Notes for Future Me
-[Anything I don't want to forget - links, commands, decisions made]
+## Progress Template (progress.md)
 
-## Testing Notes
-- [How I'm testing current functionality]
-- [Sample data I'm using]
-- [What works vs what doesn't]
-```
-
-## progress.md
 ```markdown
-# Development Progress
+# Development Progress Log
 
-## Project Journey
+## Project Timeline
 
-### Week 1: Environment Setup & Basic Structure
-- **What I learned**: [Docker setup, VS Code integration, project structure]
-- **What I built**: [Basic folder structure, first simple functions]
-- **Docker progress**: [Container setup, volume mounting, VS Code connection]
-- **Challenges faced**: [Environment issues, path problems, etc.]
-- **Wins**: [What worked well, what felt good]
+### Week of [Date]
 
-### Week 2: Core Functionality
-- **What I learned**: [New Python concepts, file operations, etc.]
-- **What I built**: [Main processing functions, basic CLI]
-- **Docker progress**: [Any environment improvements]
-- **Challenges faced**: [Coding problems, logic issues]
-- **Wins**: [Features that work, progress made]
+#### [Date] - [Feature/Task Name]
+**What I Built**:
+[Description of what was implemented]
+
+**Files Created/Modified**:
+- `src/[file.py]` - [what changed]
+- `tests/[test_file.py]` - [tests added]
+
+**What Worked**:
+```python
+# Code snippet showing successful implementation
+def successful_function():
+    """This approach worked well"""
+    pass
+```
+
+**What I Learned**:
+
+- **Concept**: [Python concept]
+  **How It Works**: [Explanation]
+  **When To Use**: [Use cases]
+
+**Challenges Overcome**:
+
+- **Problem**: [What went wrong]
+  **Solution**: [How I fixed it]
+  **Lesson**: [What to remember]
+
+**Time Spent**: [X hours]
+**Confidence Gained**: [Before X/10 → After Y/10]
+
+---
+
+### Week of [Previous Date]
+
+#### [Date] - [Feature/Task Name]
+
+[Similar structure as above]
 
 ## Completed Features
 
-### [Feature 1: e.g., "Basic file processing"]
+### ✅ Feature: [Feature Name]
+
 - **Completed**: [Date]
-- **What it does**: [Simple description of functionality]
-- **Files involved**: [Which files in app_i_am_developing/]
-- **How it works**: [Brief technical notes]
-- **What I learned**: [Python concepts or techniques gained]
-- **Testing**: [How I verified it works]
-- **Could improve**: [Ideas for making it better later]
+- **Purpose**: [What it does]
+- **Usage**: `python src/feature.py --example`
+- **Key Learning**: [Main concept mastered]
 
-### [Feature 2: e.g., "Docker environment setup"]
-- **Completed**: [Date]
-- **What it does**: [Description of the setup]
-- **Files involved**: [Dockerfile, docker-compose.yml, etc.]
-- **How it works**: [Technical notes about the environment]
-- **What I learned**: [Docker/container concepts]
-- **Testing**: [How I verified the environment works]
-- **Could improve**: [Environment optimizations]
+### ✅ Feature: [Feature Name]
 
-## Current Features In Progress
+[Similar structure]
 
-### [Feature 3: e.g., "Error handling"]
-- **Started**: [Date]
-- **Progress**: [What's working so far]
-- **Current file**: [Which file I'm working in]
-- **Stuck on**: [Current challenge or blocker]
-- **Next step**: [What to try next]
+## Skills Progression
 
-## Development Environment Progress
+### Python Concepts Learned
 
-### Docker Setup
-- **Container**: [Container name and status]
-- **Volumes**: [What's mounted and working]
-- **Environment variables**: [What I'm using]
-- **Issues resolved**: [Problems I've fixed]
-- **Still need to fix**: [Outstanding environment issues]
+1. **File I/O Operations**
+   - Level: ⭐⭐⭐☆☆
+   - Can: Read/write files, handle errors
+   - Used in: Data processing scripts
 
-### VS Code Integration
-- **Extensions working**: [Which extensions I'm using]
-- **Debugging setup**: [How I debug in container]
-- **File access**: [How file editing works]
-- **Terminal setup**: [How I run commands]
+2. **API Integration**
+   - Level: ⭐⭐☆☆☆
+   - Can: Make requests, parse JSON
+   - Used in: LLM integration, web scraping
 
-## Future Ideas
+3. **Error Handling**
+   - Level: ⭐⭐⭐☆☆
+   - Can: Try/except, custom messages
+   - Used in: All modules
 
-### Next Phase (When Basic Version Works)
-- [Feature idea 1]
-- [Feature idea 2]
-- [Improvement idea]
+[Continue list]
 
-### When I'm Better at Python
-- [More advanced feature]
-- [Complex improvement that requires more skills]
+## Code Snippets to Remember
 
-### Environment Improvements
-- [Docker optimizations]
-- [Development workflow improvements]
+### Pattern: Safe File Reading
 
-## Personal Python Learning Journey
-
-### Python Concepts I've Mastered
-- **[Concept 1]**: [What it is, when I use it, example]
-- **[Concept 2]**: [What it is, when I use it, example]
-- **[Concept 3]**: [What it is, when I use it, example]
-
-### Patterns I Use Regularly
-- **[Pattern 1]**: [When and how I use it in my code]
-- **[Pattern 2]**: [When and how I use it in my code]
-
-### Docker/Environment Skills Gained
-- **[Skill 1]**: [What I learned about containers]
-- **[Skill 2]**: [What I learned about development workflow]
-
-### Common Mistakes I Made (And Fixed)
-- **[Mistake 1]**: [What went wrong and how I fixed it]
-- **[Mistake 2]**: [What went wrong and how I fixed it]
-- **[Docker issue]**: [Environment problem and solution]
-
-### Resources That Helped Me
-- [Helpful website, tutorial, or documentation]
-- [YouTube video or blog post that explained something well]
-- [Stack Overflow answer that solved a specific problem]
-- [Docker documentation that helped with environment]
-
-## Project Statistics
-
-### Code Metrics
-- **Files in src/**: [Count]
-- **Main functions**: [Count]
-- **Lines of code**: [Rough estimate]
-- **Tests written**: [Count of test functions]
-
-### Development Metrics
-- **Coding sessions**: [Number of sessions]
-- **Time spent**: [Rough estimate]
-- **Docker rebuilds**: [How many times I rebuilt the container]
-- **Major breakthroughs**: [Key moments when things clicked]
-
-### Environment Metrics
-- **Container start time**: [How long it takes to start up]
-- **Build time**: [How long Docker build takes]
-- **File sync issues**: [Any ongoing volume mount problems]
-
-## Reflections
-
-### What's Going Really Well
-- [What I'm proud of in my code]
-- [What I'm enjoying about the development process]
-- [What feels easier now than when I started]
-
-### What's Still Challenging
-- [Python concepts I'm struggling with]
-- [Types of problems that slow me down]
-- [Docker/environment issues that persist]
-
-### Development Workflow Learnings
-- [What works well in my coding process]
-- [What I'd do differently if starting over]
-- [How my VS Code + Docker setup is working]
-
-### Goals for Next Phase
-- **Technical goals**: [What I want to build next]
-- **Learning goals**: [Python concepts to focus on]
-- **Environment goals**: [Docker/workflow improvements]
-- **Project goals**: [Features to add or improve]
-
-## Code Organization Notes
-
-### Current Structure
-```
-development_folder/
-├── app_i_am_developing/
-│   ├── src/           # [What's in here]
-│   ├── examples/      # [What's in here]
-│   ├── tests/         # [What's in here]
-│   ├── config/        # [What's in here]
-│   └── data/          # [What's in here]
+```python
+def read_file_safely(filepath):
+    """Pattern I use often"""
+    path = Path(filepath)
+    if not path.exists():
+        return None
+    try:
+        return path.read_text()
+    except Exception as e:
+        print(f"Error: {e}")
+        return None
 ```
 
-### What Works Well
-- [Aspects of my project structure that work]
-- [File organization that makes sense]
+### Pattern: API Call with Retry
 
-### What Could Be Better
-- [Structure improvements for later]
-- [File organization refinements]
+```python
+def api_call_with_retry(url, max_retries=3):
+    """Reliable API calling pattern"""
+    for attempt in range(max_retries):
+        try:
+            response = requests.get(url, timeout=10)
+            response.raise_for_status()
+            return response.json()
+        except Exception as e:
+            if attempt == max_retries - 1:
+                raise
+            time.sleep(2 ** attempt)
 ```
 
-## devnotes.md
+## Milestones Reached
+
+### 🎯 Milestone: First Working Prototype
+
+- **Date**: [Date]
+- **Achievement**: [What it could do]
+- **Celebration**: [How I celebrated]
+
+### 🎯 Milestone: [Milestone Name]
+
+[Similar structure]
+
+## Ideas for Future
+
+### Enhancement Ideas
+
+1. **Idea**: [Enhancement description]
+   **Benefit**: [Why it would help]
+   **Complexity**: [Easy/Medium/Hard]
+   **Prerequisites**: [What I need to learn first]
+
+### New Project Ideas Inspired by This
+
+1. [Project idea based on learnings]
+2. [Another project idea]
+
+---
+Last Updated: [Date]
+Total Development Hours: [X]
+
+```
+
+## Dev Notes Template (devnotes.md)
+
 ```markdown
-# Development Environment Notes
+# Development Notes
 
-## Docker Setup
+## Environment Setup
 
-### Current Configuration
-```yaml
-# docker-compose.yml highlights
-services:
-  app:
-    build: .
-    volumes:
-      - .:/app
-      - app_data:/app/app_i_am_developing/data
-    environment:
-      - PYTHONPATH=/app
-      - DEVELOPMENT_MODE=true
+### Docker Configuration
+```dockerfile
+# Current Dockerfile setup
+FROM python:3.11-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+# Add any custom configurations
 ```
 
-### Container Details
-- **Base image**: [python:3.11-slim or whatever you're using]
-- **Working directory**: /app
-- **Python path**: /app (so imports work)
-- **Port mappings**: [8000:8000 for web, 8888:8888 for jupyter, etc.]
+### VS Code Settings
 
-### Volume Mounts
-- **Source code**: . -> /app (full project mount)
-- **Data persistence**: app_data -> /app/app_i_am_developing/data
-- **Issues**: [Any problems with file permissions or sync]
+```json
+{
+    "python.defaultInterpreterPath": "/usr/local/bin/python",
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.formatting.provider": "black",
+    "editor.formatOnSave": true,
+    "files.autoSave": "afterDelay"
+}
+```
 
-## VS Code Integration
+### Container Startup Commands
 
-### Extensions I Use
-- **Dev Containers**: [For Docker integration]
-- **Python**: [For language support]
-- **Others**: [Any other helpful extensions]
-
-### Development Workflow
 ```bash
-# My typical startup process
-1. cd development_folder
-2. docker-compose up -d
-3. code .
-4. Attach to container (Dev Containers extension)
-5. Open terminal in container
+# Standard startup sequence
+cd /app/app_i_am_developing
+pip install -r requirements.txt
+python --version
+# Any other setup commands
 ```
 
-### Debugging Setup
-- **Python interpreter**: [Path in container]
-- **Debugging config**: [launch.json notes if any]
-- **Breakpoints**: [How I debug in container]
+## Dependencies
 
-## Path Management
+### Current requirements.txt
 
-### Important Paths
+```
+# Core dependencies
+python-dotenv==1.0.0
+requests==2.31.0
+pandas==2.0.3
+beautifulsoup4==4.12.2
+
+# LLM APIs
+google-generativeai==0.3.0
+openai==1.3.0  # if using
+
+# Web framework (if applicable)
+flask==3.0.0
+
+# Testing
+pytest==7.4.0
+
+# Data science (if applicable)
+matplotlib==3.7.1
+numpy==1.24.3
+
+# Add new dependencies here with date and reason
+# [Date] - added [package] for [purpose]
+```
+
+### Installation Issues & Solutions
+
+1. **Package**: [package name]
+   **Issue**: [What went wrong]
+   **Solution**: [How to fix]
+
+   ```bash
+   # Commands that fixed it
+   ```
+
+## Common Issues & Solutions
+
+### Issue: Import Error in Container
+
+**Symptom**: `ModuleNotFoundError` even after pip install
+**Cause**: Python path not set correctly
+**Solution**:
+
+```bash
+export PYTHONPATH=/app:$PYTHONPATH
+# Or add to Dockerfile
+ENV PYTHONPATH=/app:$PYTHONPATH
+```
+
+### Issue: File Not Found in Container
+
+**Symptom**: Works locally but not in container
+**Cause**: Path differences between local and container
+**Solution**: Always use absolute paths from `/app/app_i_am_developing/`
+
+### Issue: [Common Issue]
+
+**Symptom**: [What you see]
+**Cause**: [Why it happens]
+**Solution**: [How to fix]
+
+## Debugging Techniques That Work
+
+### For Web Scraping Issues
+
 ```python
-# Standard paths in my applications
-BASE_PATH = Path('/app/app_i_am_developing')
-SRC_PATH = BASE_PATH / 'src'
-DATA_PATH = BASE_PATH / 'data'
-CONFIG_PATH = BASE_PATH / 'config'
-EXAMPLES_PATH = BASE_PATH / 'examples'
+# Save HTML for offline debugging
+def debug_scraping():
+    response = requests.get(url)
+    with open('/app/app_i_am_developing/debug/page.html', 'w') as f:
+        f.write(response.text)
+    # Now can test parsing without hitting site
 ```
 
-### Path Issues I've Solved
-- **[Issue 1]**: [Problem and solution]
-- **[Issue 2]**: [Problem and solution]
+### For Data Processing Issues
 
-## Environment Variables
-
-### Development Environment
-```bash
-# .env file contents
-DEBUG=true
-DEVELOPMENT_MODE=true
-DATA_PATH=/app/app_i_am_developing/data
-PYTHONPATH=/app
-```
-
-### How I Use Them
 ```python
-import os
-DEBUG = os.getenv('DEBUG', 'false').lower() == 'true'
-DATA_PATH = Path(os.getenv('DATA_PATH', './data'))
+# Check data at each step
+def debug_pipeline(df):
+    print(f"Step 1 - Shape: {df.shape}")
+    print(f"Step 1 - Columns: {df.columns.tolist()}")
+    print(f"Step 1 - Sample:\n{df.head()}")
+    # Continue for each transformation
 ```
 
-## Docker Commands I Use
+### For API Issues
 
-### Daily Commands
+```python
+# Log full request/response
+def debug_api_call(url, params):
+    print(f"URL: {url}")
+    print(f"Params: {params}")
+    response = requests.get(url, params=params)
+    print(f"Status: {response.status_code}")
+    print(f"Headers: {dict(response.headers)}")
+    print(f"Response: {response.text[:500]}")
+```
+
+## Performance Optimizations
+
+### What Made Things Faster
+
+1. **Optimization**: Changed from [old way] to [new way]
+   **Speed Up**: [X]x faster
+   **Code**:
+
+   ```python
+   # Old way
+   [old code]
+
+   # New way
+   [new code]
+   ```
+
+## Useful Resources
+
+### Documentation Links
+
+- [Python Official Docs](https://docs.python.org/3/)
+- [Library Specific]:
+  - Pandas: [link]
+  - Requests: [link]
+  - BeautifulSoup: [link]
+
+### Tutorials That Helped
+
+1. [Tutorial Name] - [What it taught me]
+2. [Tutorial Name] - [What it taught me]
+
+### Stack Overflow Solutions
+
+1. [Problem] - [SO link] - [Key insight]
+2. [Problem] - [SO link] - [Key insight]
+
+## Git Commands I Use
+
+### Daily Workflow
+
 ```bash
-# Start development environment
-docker-compose up -d
+# Start work
+git pull
+git checkout -b feature/new-feature
 
-# Check logs
-docker-compose logs app
+# Save progress
+git add .
+git commit -m "Add: [what I added]"
 
-# Execute commands in container
-docker-compose exec app python -m app_i_am_developing.src.main
+# Learning commits
+git commit -m "Learn: [concept] - [what I learned]"
+
+# End of day
+git push origin feature/new-feature
+```
+
+### Useful Git Aliases
+
+```bash
+# Add to ~/.gitconfig
+[alias]
+    st = status
+    co = checkout
+    br = branch
+    save = !git add -A && git commit -m 'SAVEPOINT'
+    undo = reset HEAD~1 --mixed
+```
+
+## Terminal Shortcuts
+
+### Frequently Used Commands
+
+```bash
+# Navigate to project
+alias proj="cd /app/app_i_am_developing"
 
 # Run tests
-docker-compose exec app python -m app_i_am_developing.tests.test_basic
+alias test="python -m pytest tests/ -v"
 
-# Stop everything
-docker-compose down
+# Check code
+alias check="python scripts/quality_check.py"
+
+# Interactive Python with project imports
+alias ipy="cd /app/app_i_am_developing && python -i"
 ```
 
-### Troubleshooting Commands
+## Future Learning Goals
+
+### Next Python Concepts to Learn
+
+1. [ ] Async/await for concurrent operations
+2. [ ] Decorators for cleaner code
+3. [ ] Context managers for resource handling
+4. [ ] Type hints for better code clarity
+
+### Tools to Explore
+
+1. [ ] Poetry for dependency management
+2. [ ] Black for code formatting
+3. [ ] Ruff for fast linting
+4. [ ] Rich for better terminal output
+
+---
+Last Updated: [Date]
+
+```
+
+## Quick Setup Script
+
+Save this as `setup_memory_bank.py` in your project root:
+
+```python
+#!/usr/bin/env python3
+"""
+Set up memory bank structure for a new project.
+"""
+
+from pathlib import Path
+from datetime import datetime
+
+
+def create_memory_bank():
+    """Create memory bank structure with templates."""
+    base_path = Path("/app/app_i_am_developing")
+    memory_bank = base_path / "memory-bank"
+
+    # Create directory
+    memory_bank.mkdir(exist_ok=True)
+
+    # Define templates (simplified versions)
+    templates = {
+        "projectbrief.md": f"""# Project Brief: My Project
+
+## Overview
+[Describe your project here]
+
+## Learning Objectives
+- [ ] Learn Python basics through practical application
+- [ ] Build something useful for personal use
+
+## Core Requirements
+- [ ] Basic functionality that works
+- [ ] Simple error handling
+- [ ] Clear, readable code
+
+Created: {datetime.now().strftime('%Y-%m-%d')}
+""",
+
+        "activeContext.md": f"""# Active Context
+
+## Current Session Info
+- **Date**: {datetime.now().strftime('%Y-%m-%d')}
+- **Session Start**: {datetime.now().strftime('%H:%M')}
+- **Confidence Level**: 0/10 (just starting)
+
+## What I'm Working On
+Initial project setup
+
+## Next Steps
+1. [ ] Read all memory bank files
+2. [ ] Define project goals
+3. [ ] Start with simplest feature
+
+Session End: [Time]
+""",
+
+        "progress.md": """# Development Progress Log
+
+## Project Timeline
+
+### Week of [Date]
+No progress yet - just starting!
+
+## Skills Progression
+Starting from skill level 4/10
+
+---
+Last Updated: [Date]
+""",
+
+        "devnotes.md": f"""# Development Notes
+
+## Environment Setup
+- Docker: ✓
+- VS Code Remote Container: ✓
+- Python 3.11: ✓
+
+## Dependencies
+```
+
+# requirements.txt
+
+python-dotenv
+requests
+
+```
+
+Created: {datetime.now().strftime('%Y-%m-%d')}
+"""
+    }
+
+    # Create files
+    for filename, content in templates.items():
+        filepath = memory_bank / filename
+        filepath.write_text(content)
+        print(f"✅ Created {filepath}")
+
+    print(f"\n🎉 Memory bank initialized at {memory_bank}")
+    print("   Next step: Edit projectbrief.md with your project details")
+
+
+if __name__ == "__main__":
+    create_memory_bank()
+```
+
+Run this script to initialize your memory bank:
+
 ```bash
-# Rebuild container (when Dockerfile changes)
-docker-compose build
-
-# Clean restart
-docker-compose down && docker-compose up -d
-
-# Interactive shell in container
-docker-compose exec app bash
-
-# Check container status
-docker-compose ps
+python setup_memory_bank.py
 ```
 
-## Common Issues and Solutions
-
-### File Permission Issues
-- **Problem**: [Description of permission problems]
-- **Solution**: [How I fixed it]
-- **Prevention**: [How to avoid it]
-
-### Python Import Issues
-- **Problem**: [Module not found errors]
-- **Solution**: [PYTHONPATH configuration]
-- **Files affected**: [Which imports had problems]
-
-### Volume Mount Issues
-- **Problem**: [File sync or access problems]
-- **Solution**: [How I resolved it]
-- **Workaround**: [Temporary fixes if needed]
-
-### Performance Issues
-- **Problem**: [Slow startup or execution]
-- **Solution**: [Optimizations I made]
-- **Monitoring**: [How I check performance]
-
-## Development Workflow Notes
-
-### Starting a New Feature
-1. Update memory bank with goals
-2. Start Docker container
-3. Create feature branch (if using git)
-4. Work in small, testable pieces
-5. Test manually with real data
-6. Update documentation
-
-### Testing Workflow
-```bash
-# My testing routine
-docker-compose exec app python -m app_i_am_developing.tests.test_basic
-docker-compose exec app python -m app_i_am_developing.examples.manual_test
-```
-
-### Debugging Workflow
-1. Add print statements for debugging
-2. Use interactive Python in container
-3. Check container logs
-4. Test with minimal data first
-5. Isolate the problem area
-
-## Environment Optimizations
-
-### Container Startup Time
-- **Current time**: [How long it takes]
-- **Optimizations**: [What I've done to speed it up]
-- **Further improvements**: [Ideas for making it faster]
-
-### File Watching
-- **VS Code file sync**: [How well it works]
-- **Hot reload**: [If applicable to my app]
-- **Issues**: [Any file watching problems]
-
-## Backup and Recovery
-
-### Important Files to Backup
-- **Code**: All of app_i_am_developing/
-- **Data**: Persistent volumes
-- **Config**: docker-compose.yml, Dockerfile, .env
-
-### Container Recovery
-```bash
-# If container gets messed up
-docker-compose down
-docker system prune  # Clean up if needed
-docker-compose build --no-cache
-docker-compose up -d
-```
-
-## Future Environment Improvements
-
-### Next Steps
-- [Environment improvements to try]
-- [VS Code settings to optimize]
-- [Docker configuration to enhance]
-
-### Learning Goals
-- [Docker concepts to understand better]
-- [VS Code features to explore]
-- [Development workflow improvements]
-```
+These templates provide a complete structure for maintaining project context across sessions, tracking your learning progress, and building your Python skills incrementally!

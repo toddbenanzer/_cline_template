@@ -1,588 +1,830 @@
-# Personal Python Development Workflows
+# Personal Scripting Workflows and Development Patterns
 
-## Development Environment Workflow
+## Daily Development Routine
 
-### Daily Development Routine
+### Container Startup Checklist
+
 ```bash
-# 1. Start your development environment
-cd /path/to/development_folder
-docker-compose up -d
+# 1. Open VS Code
+# 2. Open folder in container (F1 -> "Remote-Containers: Open Folder in Container")
+# 3. Wait for container to build/start
+# 4. In terminal, verify environment:
 
-# 2. Open VS Code in WSL2
-code .
+cd /app/app_i_am_developing
+python --version  # Should show 3.11+
+pip list  # Check installed packages
+ls -la  # Verify file structure
 
-# 3. Attach to Docker container
-# (Use VS Code Dev Containers extension)
-
-# 4. Start Cline session with memory bank
-# Use: "follow your custom instructions"
-
-# 5. Check current status from memory bank
-python -m app_i_am_developing.src.main --help
-
-# 6. Work on current feature
-
-# 7. End session with memory bank update
-# Use: "update memory bank" with today's progress
+# 5. Start Cline with confidence check:
+"Follow your custom instructions and read all memory bank files.
+Rate your confidence (0-10) in understanding the current project state."
 ```
 
-## Memory Bank Integration Workflow
+### Project Structure Setup
 
-### Session Start Protocol
-1. **Read Memory Bank**: Start with "follow your custom instructions"
-2. **Verify Context**: Confirm understanding of current project state
-3. **Set Session Goals**: Define what to accomplish today
-4. **Check Environment**: Ensure Docker container and VS Code are ready
-
-### During Development
-- **Document Decisions**: Note why you chose specific approaches
-- **Track Learning**: Record new Python concepts as you encounter them
-- **Note Problems**: Save error messages and solutions
-- **Update Context**: Keep activeContext.md current with progress
-
-### Session End Protocol
 ```python
-# Memory bank update checklist:
+# Script: /app/app_i_am_developing/scripts/setup_project.py
 """
-□ What specific functions/files did I work on?
-□ What Python concepts did I learn or practice?
-□ What problems did I solve and how?
-□ What's the next immediate step?
-□ Any Docker/environment issues encountered?
-□ What questions do I have for next session?
+Set up standard project structure for new development.
+
+Learning points:
+- Path manipulation with pathlib
+- Directory creation patterns
+- File templates
 """
-```
 
-### Memory Bank Health Indicators
-- **Good**: activeContext.md reflects current work accurately
-- **Good**: Can resume work quickly using memory bank context
-- **Warning**: Memory bank info doesn't match actual project state
-- **Bad**: Spending time figuring out what you were working on
-
-### Project Structure Workflow
-```
-development_folder/
-├── docker-compose.yml      # Start here for new projects
-├── Dockerfile             # Simple Python environment
-├── requirements.txt       # Keep dependencies minimal
-├── .env                   # Environment variables
-├── .gitignore            # Standard Python gitignore
-└── app_i_am_developing/
-    ├── src/              # Main application code
-    ├── examples/         # Usage examples
-    ├── tests/            # Simple tests
-    ├── config/           # Configuration files
-    └── data/             # Input/output data
-```
-
-## Development Patterns for Personal Use
-
-### The "Build One Feature" Pattern
-```python
-# Day 1: Get basic functionality working
-def process_data_v1(data):
-    """Version 1: Just make it work."""
-    results = []
-    for item in data:
-        results.append(item.upper())
-    return results
-
-# Day 2: Add basic error handling
-def process_data_v2(data):
-    """Version 2: Add minimal error handling."""
-    if not data:
-        return []
-
-    results = []
-    for item in data:
-        if isinstance(item, str):
-            results.append(item.upper())
-    return results
-
-# Day 3: Make it more useful
-def process_data_v3(data, operation='upper'):
-    """Version 3: Add configurability."""
-    if not data:
-        return []
-
-    operations = {
-        'upper': str.upper,
-        'lower': str.lower,
-        'title': str.title
-    }
-
-    op_func = operations.get(operation, str.upper)
-    results = []
-
-    for item in data:
-        if isinstance(item, str):
-            results.append(op_func(item))
-
-    return results
-```
-
-### The "Personal Tool" Pattern
-```python
-# Example: Personal file organizer
 from pathlib import Path
-import shutil
-
-def organize_my_files():
-    """Organize files the way I like them."""
-
-    # My specific folder structure
-    downloads = Path.home() / "Downloads"
-    organized = downloads / "organized"
-
-    # Create folders for my needs
-    folders = {
-        'documents': organized / "documents",
-        'images': organized / "images",
-        'code': organized / "code",
-        'data': organized / "data"
-    }
-
-    # Create folders if they don't exist
-    for folder in folders.values():
-        folder.mkdir(parents=True, exist_ok=True)
-
-    # My file type mapping
-    file_types = {
-        '.pdf': 'documents',
-        '.txt': 'documents',
-        '.py': 'code',
-        '.csv': 'data',
-        '.json': 'data',
-        '.jpg': 'images',
-        '.png': 'images'
-    }
-
-    # Process files
-    for file_path in downloads.iterdir():
-        if file_path.is_file():
-            extension = file_path.suffix.lower()
-            folder_type = file_types.get(extension, 'other')
-
-            if folder_type != 'other':
-                dest_folder = folders[folder_type]
-                dest_path = dest_folder / file_path.name
-                shutil.move(str(file_path), str(dest_path))
-                print(f"Moved {file_path.name} to {folder_type}/")
-
-if __name__ == "__main__":
-    organize_my_files()
-```
-
-## Docker Development Workflows
-
-### Container-Based Development
-```yaml
-# docker-compose.yml for development
-version: '3.8'
-services:
-  app:
-    build: .
-    volumes:
-      - .:/app                          # Mount entire project
-      - app_data:/app/app_i_am_developing/data  # Persist data
-    working_dir: /app
-    stdin_open: true
-    tty: true
-    environment:
-      - PYTHONPATH=/app
-      - DEVELOPMENT_MODE=true
-    ports:
-      - "8000:8000"                     # For web apps
-      - "8888:8888"                     # For Jupyter
-
-volumes:
-  app_data:
-```
-
-### Development Commands
-```bash
-# Common development commands
-docker-compose exec app python -m app_i_am_developing.src.main
-docker-compose exec app python -m app_i_am_developing.tests.test_basic
-docker-compose exec app python -c "from app_i_am_developing.src.core import *; help(DataProcessor)"
-```
-
-### File Operations in Docker
-```python
-# Handle file paths in Docker environment
-from pathlib import Path
-import os
-
-def get_app_paths():
-    """Get standard paths for the application."""
-    if os.getenv('DEVELOPMENT_MODE'):
-        base_path = Path('/app/app_i_am_developing')
-    else:
-        base_path = Path(__file__).parent.parent
-
-    return {
-        'data': base_path / 'data',
-        'config': base_path / 'config',
-        'examples': base_path / 'examples',
-        'output': base_path / 'data' / 'output'
-    }
-
-def process_files_in_docker():
-    """Example of processing files in Docker."""
-    paths = get_app_paths()
-
-    # Ensure directories exist
-    paths['output'].mkdir(parents=True, exist_ok=True)
-
-    # Process files
-    for input_file in paths['data'].glob('*.txt'):
-        output_file = paths['output'] / f"processed_{input_file.name}"
-
-        # Simple processing
-        with open(input_file, 'r') as f:
-            content = f.read()
-
-        processed_content = content.upper()  # Simple transformation
-
-        with open(output_file, 'w') as f:
-            f.write(processed_content)
-
-        print(f"Processed {input_file.name} -> {output_file.name}")
-```
-
-## Personal Application Templates
-
-### Simple CLI Application
-```python
-# src/main.py
-"""Simple CLI application template."""
-
-import argparse
-from pathlib import Path
-from .core.processor import DataProcessor
-from .config.settings import load_config
-
-def main():
-    """Main application entry point."""
-    parser = argparse.ArgumentParser(description='My personal tool')
-    parser.add_argument('--input', help='Input file path')
-    parser.add_argument('--output', help='Output file path')
-    parser.add_argument('--config', help='Config file path')
-
-    args = parser.parse_args()
-
-    # Load configuration
-    config = load_config(args.config)
-
-    # Initialize processor
-    processor = DataProcessor(config)
-
-    # Process data
-    if args.input:
-        results = processor.process_file(args.input)
-
-        if args.output:
-            processor.save_results(results, args.output)
-        else:
-            print(f"Processed {len(results)} items")
-    else:
-        print("Please provide an input file")
-
-if __name__ == "__main__":
-    main()
-```
-
-### Data Processing Application
-```python
-# src/core/processor.py
-"""Simple data processing core."""
-
 import json
-from pathlib import Path
 
-class DataProcessor:
-    """Simple data processor for personal use."""
 
-    def __init__(self, config=None):
-        self.config = config or {}
-        self.batch_size = self.config.get('batch_size', 100)
+def setup_project_structure(project_name="my_project"):
+    """Create standard directory structure."""
+    base_path = Path(f"/app/app_i_am_developing/{project_name}")
 
-    def process_file(self, file_path):
-        """Process a single file."""
-        file_path = Path(file_path)
-
-        if file_path.suffix == '.json':
-            return self._process_json(file_path)
-        elif file_path.suffix == '.txt':
-            return self._process_text(file_path)
-        else:
-            print(f"Unsupported file type: {file_path.suffix}")
-            return []
-
-    def _process_json(self, file_path):
-        """Process JSON file."""
-        with open(file_path, 'r') as f:
-            data = json.load(f)
-
-        # Simple processing
-        results = []
-        for item in data:
-            processed_item = self._process_item(item)
-            results.append(processed_item)
-
-        return results
-
-    def _process_text(self, file_path):
-        """Process text file."""
-        with open(file_path, 'r') as f:
-            lines = f.readlines()
-
-        # Simple processing
-        results = []
-        for line in lines:
-            processed_line = line.strip().upper()
-            if processed_line:  # Skip empty lines
-                results.append(processed_line)
-
-        return results
-
-    def _process_item(self, item):
-        """Process a single item."""
-        if isinstance(item, dict):
-            return {k: str(v).upper() for k, v in item.items()}
-        else:
-            return str(item).upper()
-
-    def save_results(self, results, output_path):
-        """Save results to file."""
-        output_path = Path(output_path)
-
-        if output_path.suffix == '.json':
-            with open(output_path, 'w') as f:
-                json.dump(results, f, indent=2)
-        else:
-            with open(output_path, 'w') as f:
-                for result in results:
-                    f.write(f"{result}\n")
-
-        print(f"Saved {len(results)} results to {output_path}")
-```
-
-## Testing and Validation Workflows
-
-### Simple Manual Testing
-```python
-# examples/manual_test.py
-"""Manual testing script."""
-
-from pathlib import Path
-import sys
-
-# Add src to path
-sys.path.insert(0, str(Path(__file__).parent.parent / 'src'))
-
-from core.processor import DataProcessor
-
-def test_basic_functionality():
-    """Test basic functionality manually."""
-    processor = DataProcessor()
-
-    # Test with simple data
-    test_data = [
-        {'name': 'test', 'value': 123},
-        {'name': 'example', 'value': 456}
+    # Define directory structure
+    directories = [
+        "src",
+        "tests",
+        "data/input",
+        "data/output",
+        "config",
+        "docs",
+        "notebooks",
+        "examples"
     ]
 
-    # Create temporary JSON file
-    test_file = Path('test_data.json')
-    import json
-    with open(test_file, 'w') as f:
-        json.dump(test_data, f)
+    # Create directories
+    for dir_name in directories:
+        dir_path = base_path / dir_name
+        dir_path.mkdir(parents=True, exist_ok=True)
+        print(f"✅ Created {dir_path}")
 
-    try:
-        # Process the file
-        results = processor.process_file(test_file)
-
-        # Check results
-        print(f"Processed {len(results)} items")
-        for result in results:
-            print(f"  {result}")
-
-        # Save results
-        processor.save_results(results, 'test_output.json')
-
-    finally:
-        # Clean up
-        test_file.unlink()
-        Path('test_output.json').unlink()
-
-if __name__ == "__main__":
-    test_basic_functionality()
-```
-
-### Docker Testing
-```bash
-# Test script for Docker environment
-#!/bin/bash
-echo "Testing application in Docker..."
-
-# Start services
-docker-compose up -d
-
-# Wait for services to be ready
-sleep 5
-
-# Run tests
-docker-compose exec app python -m app_i_am_developing.examples.manual_test
-
-# Run main application
-docker-compose exec app python -m app_i_am_developing.src.main --help
-
-# Clean up
-docker-compose down
-
-echo "Testing complete!"
-```
-
-## Configuration and Environment Management
-
-### Simple Environment Configuration
-```python
-# config/settings.py
-"""Simple configuration management."""
-
-import os
-from pathlib import Path
-
-class Settings:
-    """Application settings."""
-
-    def __init__(self):
-        self.debug = os.getenv('DEBUG', 'false').lower() == 'true'
-        self.data_path = Path(os.getenv('DATA_PATH', './data'))
-        self.batch_size = int(os.getenv('BATCH_SIZE', '100'))
-        self.timeout = int(os.getenv('TIMEOUT', '30'))
-
-        # Ensure data directory exists
-        self.data_path.mkdir(parents=True, exist_ok=True)
-
-    def get_input_path(self):
-        """Get input data path."""
-        return self.data_path / 'input'
-
-    def get_output_path(self):
-        """Get output data path."""
-        return self.data_path / 'output'
-
-def load_config(config_file=None):
-    """Load configuration."""
-    if config_file:
-        # Load from file if specified
-        pass  # Add file loading logic if needed
-
-    return Settings()
-```
-
-### Environment Variables
-```bash
-# .env file for development
-DEBUG=true
-DATA_PATH=/app/app_i_am_developing/data
-BATCH_SIZE=50
-TIMEOUT=60
-DEVELOPMENT_MODE=true
-```
-
-## Common Personal Use Cases
-
-### File Management Tasks
-```python
-def organize_project_files():
-    """Organize project files by type."""
-    project_root = Path('/app/app_i_am_developing')
-
-    # Define organization rules
-    rules = {
-        'notebooks': project_root / 'notebooks',
-        'examples': project_root / 'examples',
-        'data': project_root / 'data',
-        'config': project_root / 'config'
+    # Create standard files
+    files_to_create = {
+        "README.md": f"# {project_name}\n\nProject description here.",
+        "requirements.txt": "# Add your dependencies here\npython-dotenv\nrequests\n",
+        ".env.example": "# Copy to .env and fill in your values\nAPI_KEY=your_key_here\n",
+        ".gitignore": ".env\n__pycache__/\n*.pyc\ndata/output/*\n!data/output/.gitkeep\n",
+        "src/__init__.py": "",
+        "data/output/.gitkeep": ""
     }
 
-    # Process files
-    for file_path in project_root.rglob('*'):
-        if file_path.is_file():
-            file_type = determine_file_type(file_path)
-            if file_type in rules:
-                move_to_appropriate_folder(file_path, rules[file_type])
+    for file_path, content in files_to_create.items():
+        full_path = base_path / file_path
+        full_path.parent.mkdir(parents=True, exist_ok=True)
+        full_path.write_text(content)
+        print(f"✅ Created {full_path}")
 
-def determine_file_type(file_path):
-    """Determine file type based on extension and content."""
-    if file_path.suffix == '.ipynb':
-        return 'notebooks'
-    elif file_path.suffix in ['.csv', '.json', '.txt']:
-        return 'data'
-    elif file_path.name.startswith('example_'):
-        return 'examples'
-    elif file_path.suffix in ['.yml', '.yaml', '.conf']:
-        return 'config'
-    return 'other'
+    print(f"\n🎉 Project '{project_name}' is ready!")
+    print(f"   Location: {base_path}")
+
+
+if __name__ == "__main__":
+    setup_project_structure()
 ```
 
-### Data Processing Tasks
+## Project Type Workflows
+
+### Web Scraping Workflow
+
 ```python
-def process_personal_data():
-    """Process personal data files."""
-    data_dir = Path('/app/app_i_am_developing/data/input')
-    output_dir = Path('/app/app_i_am_developing/data/output')
+# Workflow stages for building a scraper
 
-    output_dir.mkdir(parents=True, exist_ok=True)
+# Stage 1: Exploration
+"""
+Task: Understand the website structure
+1. Manually visit the site
+2. Inspect HTML (F12 in browser)
+3. Identify data patterns
+4. Check robots.txt
+"""
 
-    for data_file in data_dir.glob('*.csv'):
-        processed_data = process_csv_file(data_file)
-        output_file = output_dir / f"processed_{data_file.name}"
-        save_processed_data(processed_data, output_file)
-        print(f"Processed {data_file.name} -> {output_file.name}")
+# Stage 2: Prototype
+# File: /app/app_i_am_developing/notebooks/scraper_exploration.ipynb
+import requests
+from bs4 import BeautifulSoup
 
-def process_csv_file(file_path):
-    """Process CSV file simply."""
-    import csv
+# Test single page fetch
+url = "https://example.com"
+response = requests.get(url)
+soup = BeautifulSoup(response.text, 'html.parser')
 
-    results = []
-    with open(file_path, 'r') as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            # Simple processing
-            processed_row = {
-                'name': row['name'].strip().title(),
-                'value': float(row['value']) if row['value'] else 0
-            }
-            results.append(processed_row)
+# Explore structure
+print("Title:", soup.title.text)
+print("Links:", len(soup.find_all('a')))
 
-    return results
+# Stage 3: Build Core Scraper
+# File: /app/app_i_am_developing/src/scrapers/main_scraper.py
+"""
+Production scraper with error handling and logging.
+
+Progressive versions:
+- V1: Basic fetch and parse
+- V2: Add rate limiting and retries
+- V3: Add data validation and storage
+- V4: Add progress tracking and resume capability
+"""
+
+import time
+import json
+from pathlib import Path
+from datetime import datetime
+import logging
+
+# Set up logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
+
+class ProgressiveScraper:
+    """Web scraper that improves with each version."""
+
+    def __init__(self, base_url, version=1):
+        self.base_url = base_url
+        self.version = version
+        self.session = requests.Session()
+        self.data_dir = Path("/app/app_i_am_developing/data/output")
+
+    def scrape_v1(self, url):
+        """Version 1: Basic scraping."""
+        response = self.session.get(url)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        return {"title": soup.title.text}
+
+    def scrape_v2(self, url):
+        """Version 2: Add politeness and error handling."""
+        time.sleep(1)  # Be polite
+
+        try:
+            response = self.session.get(url, timeout=10)
+            response.raise_for_status()
+            soup = BeautifulSoup(response.text, 'html.parser')
+            return {"title": soup.title.text, "status": "success"}
+        except Exception as e:
+            logger.error(f"Failed to scrape {url}: {e}")
+            return {"error": str(e), "status": "failed"}
+
+    def scrape_v3(self, urls):
+        """Version 3: Batch processing with progress."""
+        results = []
+
+        for i, url in enumerate(urls, 1):
+            logger.info(f"Scraping {i}/{len(urls)}: {url}")
+            result = self.scrape_v2(url)
+            result['url'] = url
+            result['timestamp'] = datetime.now().isoformat()
+            results.append(result)
+
+            # Save progress
+            if i % 10 == 0:
+                self.save_progress(results)
+
+        return results
+
+    def save_progress(self, data):
+        """Save scraping progress."""
+        filename = f"scrape_results_{datetime.now():%Y%m%d_%H%M%S}.json"
+        filepath = self.data_dir / filename
+
+        with open(filepath, 'w') as f:
+            json.dump(data, f, indent=2)
+
+        logger.info(f"Saved progress to {filepath}")
+
+
+# Usage example showing progression
+if __name__ == "__main__":
+    scraper = ProgressiveScraper("https://example.com")
+
+    # Start simple
+    print("Version 1:", scraper.scrape_v1("https://example.com"))
+
+    # Add features gradually
+    print("Version 2:", scraper.scrape_v2("https://example.com"))
 ```
 
-## Development Best Practices
+### LLM API Module Workflow
 
-### Keep It Simple Workflow
-1. **One feature at a time**: Focus on single functionality
-2. **Test manually first**: Run with real data before automating
-3. **Use simple patterns**: Stick to basic Python constructs
-4. **Document for future self**: Add comments about why, not what
-5. **Commit working code**: Save progress frequently
-
-### Personal Development Checklist
 ```python
-# Before finishing a coding session:
+# Workflow for building LLM integration modules
+
+# Stage 1: API Key Management
+# File: /app/app_i_am_developing/config/llm_config.py
 """
-✓ Does the code work with real data?
-✓ Are variable names clear and descriptive?
-✓ Is the logic easy to follow?
-✓ Did I add necessary comments?
-✓ Can I run this in my Docker environment?
-✓ Is it simple enough to maintain?
-✓ Did I update the memory bank?
+Centralized LLM configuration.
+
+Learning points:
+- Environment variable management
+- Configuration validation
+- Multiple API support
 """
+
+import os
+from dotenv import load_dotenv
+from typing import Optional
+
+load_dotenv()
+
+
+class LLMConfig:
+    """Manage LLM API configurations."""
+
+    def __init__(self):
+        self.gemini_key = os.getenv('GEMINI_API_KEY')
+        self.openai_key = os.getenv('OPENAI_API_KEY')
+
+    def get_available_models(self):
+        """Check which models we can use."""
+        available = []
+
+        if self.gemini_key:
+            available.append("gemini")
+        if self.openai_key:
+            available.append("openai")
+
+        return available
+
+    def validate(self):
+        """Ensure at least one API is configured."""
+        if not self.gemini_key and not self.openai_key:
+            raise ValueError(
+                "No API keys found! Add GEMINI_API_KEY or "
+                "OPENAI_API_KEY to your .env file"
+            )
+
+
+# Stage 2: Simple LLM Interface
+# File: /app/app_i_am_developing/src/llm/simple_llm.py
+"""
+Simple interface for multiple LLMs.
+
+Progressive versions:
+- V1: Basic prompt/response
+- V2: Add conversation memory
+- V3: Add prompt templates
+- V4: Add cost tracking
+"""
+
+from typing import List, Dict, Optional
+import google.generativeai as genai
+from config.llm_config import LLMConfig
+
+
+class SimpleLLM:
+    """Simple multi-LLM interface."""
+
+    def __init__(self, model_type="gemini"):
+        self.config = LLMConfig()
+        self.config.validate()
+        self.model_type = model_type
+        self.conversation_history = []
+
+        # Initialize model
+        if model_type == "gemini":
+            genai.configure(api_key=self.config.gemini_key)
+            self.model = genai.GenerativeModel('gemini-2.0-flash-experimental')
+
+    def ask(self, prompt: str, remember: bool = True) -> str:
+        """Send prompt to LLM."""
+        try:
+            # Add to history if remembering
+            if remember:
+                self.conversation_history.append({
+                    "role": "user",
+                    "content": prompt
+                })
+
+            # Get response
+            response = self.model.generate_content(prompt)
+
+            # Save response to history
+            if remember:
+                self.conversation_history.append({
+                    "role": "assistant",
+                    "content": response.text
+                })
+
+            return response.text
+
+        except Exception as e:
+            return f"Error: {e}"
+
+    def ask_with_context(self, prompt: str, context: str) -> str:
+        """Ask with additional context."""
+        full_prompt = f"""
+        Context: {context}
+
+        Question: {prompt}
+
+        Please answer based on the provided context.
+        """
+        return self.ask(full_prompt)
+
+    def summarize_text(self, text: str, max_length: int = 100) -> str:
+        """Summarize long text."""
+        prompt = f"""
+        Please summarize this text in about {max_length} words:
+
+        {text}
+
+        Summary:
+        """
+        return self.ask(prompt, remember=False)
+
+
+# Stage 3: Specialized Modules
+# File: /app/app_i_am_developing/src/llm/code_assistant.py
+"""
+LLM module specialized for code assistance.
+"""
+
+class CodeAssistant(SimpleLLM):
+    """LLM assistant for coding tasks."""
+
+    def explain_error(self, error_message: str, code_context: str = "") -> str:
+        """Explain Python errors in simple terms."""
+        prompt = f"""
+        I got this Python error:
+        {error_message}
+
+        Code context:
+        {code_context}
+
+        Please explain:
+        1. What this error means in simple terms
+        2. Why it happened
+        3. How to fix it
+        4. How to avoid it in the future
+
+        Keep explanation beginner-friendly (skill level 4/10).
+        """
+        return self.ask(prompt)
+
+    def improve_code(self, code: str, focus: str = "readability") -> str:
+        """Get code improvement suggestions."""
+        prompt = f"""
+        Please improve this Python code focusing on {focus}:
+
+        {code}
+
+        Requirements:
+        - Keep it simple (I'm skill level 4/10)
+        - Preserve the core logic
+        - Add helpful comments
+        - Explain each improvement
+
+        Provide the improved code and explanations.
+        """
+        return self.ask(prompt)
 ```
 
-Remember: Focus on building tools that solve your actual problems, using simple patterns you can understand and maintain!
+### Data Science Workflow
+
+```python
+# Progressive data science project workflow
+
+# Stage 1: Data Exploration
+# File: /app/app_i_am_developing/notebooks/data_exploration.py
+"""
+Initial data exploration script.
+
+Learning path:
+1. Load and inspect data
+2. Basic statistics
+3. Simple visualizations
+4. Initial findings
+"""
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from pathlib import Path
+
+# Set up paths
+data_dir = Path("/app/app_i_am_developing/data")
+input_file = data_dir / "input" / "sample_data.csv"
+
+
+def explore_data(filepath):
+    """Basic data exploration routine."""
+    print(f"Loading data from {filepath}")
+
+    # Load data
+    df = pd.read_csv(filepath)
+
+    # Basic info
+    print("\n=== Data Shape ===")
+    print(f"Rows: {len(df)}")
+    print(f"Columns: {len(df.columns)}")
+
+    print("\n=== Column Types ===")
+    print(df.dtypes)
+
+    print("\n=== First 5 Rows ===")
+    print(df.head())
+
+    print("\n=== Basic Statistics ===")
+    print(df.describe())
+
+    print("\n=== Missing Values ===")
+    print(df.isnull().sum())
+
+    return df
+
+
+# Stage 2: Data Cleaning
+# File: /app/app_i_am_developing/src/data/cleaning_pipeline.py
+"""
+Progressive data cleaning pipeline.
+"""
+
+class DataCleaner:
+    """Clean data step by step."""
+
+    def __init__(self, df):
+        self.original_df = df
+        self.df = df.copy()
+        self.cleaning_log = []
+
+    def remove_duplicates(self):
+        """Remove duplicate rows."""
+        before = len(self.df)
+        self.df = self.df.drop_duplicates()
+        after = len(self.df)
+
+        self.cleaning_log.append(
+            f"Removed {before - after} duplicate rows"
+        )
+        return self
+
+    def handle_missing(self, strategy="drop"):
+        """Handle missing values."""
+        if strategy == "drop":
+            before = len(self.df)
+            self.df = self.df.dropna()
+            after = len(self.df)
+            self.cleaning_log.append(
+                f"Dropped {before - after} rows with missing values"
+            )
+        elif strategy == "fill":
+            # Fill numeric columns with median
+            numeric_cols = self.df.select_dtypes(include=['number']).columns
+            for col in numeric_cols:
+                median_val = self.df[col].median()
+                self.df[col].fillna(median_val, inplace=True)
+            self.cleaning_log.append("Filled missing values with median")
+
+        return self
+
+    def get_clean_data(self):
+        """Get cleaned dataframe with report."""
+        print("=== Cleaning Report ===")
+        for step in self.cleaning_log:
+            print(f"- {step}")
+
+        return self.df
+
+
+# Stage 3: Simple Analysis
+# File: /app/app_i_am_developing/src/analysis/basic_analysis.py
+"""
+Basic analysis patterns for learning.
+"""
+
+def analyze_correlations(df, target_column):
+    """Find correlations with target variable."""
+    # Only numeric columns
+    numeric_df = df.select_dtypes(include=['number'])
+
+    # Calculate correlations
+    correlations = numeric_df.corr()[target_column].sort_values(
+        ascending=False
+    )
+
+    print(f"=== Correlations with {target_column} ===")
+    for col, corr in correlations.items():
+        if col != target_column:
+            print(f"{col}: {corr:.3f}")
+
+    return correlations
+
+
+def create_simple_plots(df, columns_to_plot):
+    """Create basic visualizations."""
+    fig, axes = plt.subplots(2, 2, figsize=(10, 8))
+    axes = axes.ravel()
+
+    for i, col in enumerate(columns_to_plot[:4]):
+        if col in df.columns:
+            df[col].hist(ax=axes[i], bins=20)
+            axes[i].set_title(f'Distribution of {col}')
+            axes[i].set_xlabel(col)
+            axes[i].set_ylabel('Frequency')
+
+    plt.tight_layout()
+    plt.savefig('/app/app_i_am_developing/data/output/distributions.png')
+    print("✅ Saved plot to data/output/distributions.png")
+```
+
+### Automation Script Workflow
+
+```python
+# Building personal automation tools
+
+# Stage 1: Identify Repetitive Task
+# File: /app/app_i_am_developing/scripts/file_organizer.py
+"""
+Organize downloads folder by file type.
+
+Learning goals:
+- File system operations
+- Pattern matching
+- Automation basics
+"""
+
+from pathlib import Path
+import shutil
+from datetime import datetime
+
+
+class FileOrganizer:
+    """Organize files by type and date."""
+
+    def __init__(self, source_dir, target_dir):
+        self.source_dir = Path(source_dir)
+        self.target_dir = Path(target_dir)
+
+        # File type mappings
+        self.file_mappings = {
+            'images': ['.jpg', '.jpeg', '.png', '.gif', '.bmp'],
+            'documents': ['.pdf', '.doc', '.docx', '.txt', '.odt'],
+            'spreadsheets': ['.xls', '.xlsx', '.csv'],
+            'archives': ['.zip', '.rar', '.7z', '.tar', '.gz'],
+            'code': ['.py', '.js', '.html', '.css', '.json'],
+            'data': ['.csv', '.json', '.xml', '.sql']
+        }
+
+    def organize_by_type(self, dry_run=True):
+        """Organize files into type folders."""
+        moves_planned = []
+
+        # Check all files
+        for file_path in self.source_dir.iterdir():
+            if file_path.is_file():
+                file_type = self.get_file_type(file_path)
+
+                if file_type:
+                    # Create target directory
+                    type_dir = self.target_dir / file_type
+                    type_dir.mkdir(exist_ok=True)
+
+                    # Plan move
+                    target_path = type_dir / file_path.name
+                    moves_planned.append((file_path, target_path))
+
+        # Execute or preview
+        if dry_run:
+            print("=== Planned Moves (Dry Run) ===")
+            for source, target in moves_planned:
+                print(f"Move: {source.name} -> {target.parent.name}/")
+        else:
+            for source, target in moves_planned:
+                shutil.move(str(source), str(target))
+                print(f"✅ Moved {source.name}")
+
+        return len(moves_planned)
+
+    def get_file_type(self, file_path):
+        """Determine file type category."""
+        suffix = file_path.suffix.lower()
+
+        for file_type, extensions in self.file_mappings.items():
+            if suffix in extensions:
+                return file_type
+
+        return None
+
+
+# Stage 2: Schedule Automation
+# File: /app/app_i_am_developing/scripts/daily_tasks.py
+"""
+Daily automation tasks.
+"""
+
+def run_daily_tasks():
+    """Run all daily automation tasks."""
+    print(f"=== Daily Tasks - {datetime.now():%Y-%m-%d %H:%M} ===")
+
+    # Task 1: Organize downloads
+    organizer = FileOrganizer(
+        "/app/app_i_am_developing/data/input",
+        "/app/app_i_am_developing/data/organized"
+    )
+    count = organizer.organize_by_type(dry_run=False)
+    print(f"✅ Organized {count} files")
+
+    # Task 2: Clean old files
+    clean_old_files("/app/app_i_am_developing/data/temp", days=7)
+
+    # Task 3: Backup important data
+    backup_data("/app/app_i_am_developing/data/important")
+
+    print("=== Daily tasks complete ===")
+```
+
+## Development Patterns
+
+### Progressive Enhancement Pattern
+
+```python
+def progressive_development():
+    """
+    Build features incrementally:
+
+    Day 1: Make it work
+    Day 2: Make it safe
+    Day 3: Make it flexible
+    Day 4: Make it maintainable
+    """
+    pass
+
+# Example: Building a web scraper progressively
+
+# Day 1: Just get the data
+response = requests.get(url)
+data = response.text
+
+# Day 2: Add error handling
+try:
+    response = requests.get(url, timeout=10)
+    response.raise_for_status()
+    data = response.text
+except requests.RequestException as e:
+    print(f"Error: {e}")
+    data = None
+
+# Day 3: Add configuration
+def fetch_data(url, timeout=10, retries=3, headers=None):
+    """Configurable data fetching."""
+    # Implementation
+
+# Day 4: Add logging and monitoring
+logger.info(f"Fetching {url}")
+# Full implementation with metrics
+```
+
+### Error-First Development
+
+```python
+# Start by thinking about what can go wrong
+
+def safe_file_operation(filepath):
+    """
+    File operation with comprehensive error handling.
+
+    What can go wrong:
+    1. File doesn't exist
+    2. No read permissions
+    3. File is corrupted
+    4. Disk is full
+    5. Network drive disconnected
+    """
+    filepath = Path(filepath)
+
+    # Check file exists
+    if not filepath.exists():
+        logger.error(f"File not found: {filepath}")
+        return None
+
+    # Check permissions
+    if not filepath.is_file():
+        logger.error(f"Not a file: {filepath}")
+        return None
+
+    try:
+        # Actual operation
+        with open(filepath, 'r') as f:
+            return f.read()
+    except PermissionError:
+        logger.error(f"No permission to read: {filepath}")
+    except IOError as e:
+        logger.error(f"IO error reading {filepath}: {e}")
+    except Exception as e:
+        logger.error(f"Unexpected error: {e}")
+
+    return None
+```
+
+### Testing Patterns for Personal Projects
+
+```python
+# Simple testing without complex frameworks
+
+# Pattern 1: Test functions with examples
+def test_scraper():
+    """Test scraper with real example."""
+    scraper = WebScraper("https://example.com")
+
+    # Test 1: Can fetch page
+    html = scraper.fetch_page("/test")
+    assert html is not None, "Failed to fetch page"
+
+    # Test 2: Can parse data
+    data = scraper.parse_data(html)
+    assert len(data) > 0, "No data parsed"
+
+    print("✅ All scraper tests passed!")
+
+
+# Pattern 2: Visual testing for data science
+def test_data_pipeline():
+    """Test data pipeline with visualization."""
+    # Load test data
+    df = pd.read_csv("/app/app_i_am_developing/data/test_data.csv")
+
+    # Process data
+    cleaned_df = DataCleaner(df).clean()
+
+    # Visual check
+    plt.figure(figsize=(10, 6))
+    plt.subplot(1, 2, 1)
+    df['value'].hist()
+    plt.title('Original Data')
+
+    plt.subplot(1, 2, 2)
+    cleaned_df['value'].hist()
+    plt.title('Cleaned Data')
+
+    plt.savefig('/app/app_i_am_developing/tests/cleaning_comparison.png')
+    print("✅ Check tests/cleaning_comparison.png for results")
+```
+
+## Memory Bank Integration
+
+### Update Patterns
+
+```markdown
+## After Each Session Update:
+
+### activeContext.md
+- Current feature: [what you built]
+- Next steps: [what's next]
+- Blockers: [any issues]
+- Confidence: [X/10]
+
+### progress.md
+- Completed: [feature name]
+- Learned: [Python concepts]
+- Code location: [/app/path/to/file.py]
+- Works: [Yes/No]
+
+### devnotes.md
+- New package: [package==version]
+- Config change: [what changed]
+- Debug solution: [problem -> solution]
+```
+
+## Quick Command Reference
+
+### Development Commands
+
+```bash
+# Project setup
+python scripts/setup_project.py
+
+# Run scraper
+python src/scrapers/main_scraper.py --url "https://example.com"
+
+# Process data
+python src/data/process_csv.py --input data.csv
+
+# Start web app
+python src/web/app.py
+
+# Run automation
+python scripts/daily_tasks.py
+
+# Quick test
+python -m pytest tests/ -v
+
+# Interactive testing
+python -i src/module.py
+```
+
+### Git Workflow for Learning
+
+```bash
+# Save progress frequently
+git add .
+git commit -m "Add: basic scraper function"
+
+# Create learning branches
+git checkout -b feature/add-error-handling
+
+# Commit with learning notes
+git commit -m "Learn: try/except patterns for API calls"
+```
+
+Remember: Every script is a learning opportunity. Start simple, enhance gradually, and document what you learn!
